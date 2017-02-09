@@ -32,8 +32,8 @@
     progress:(void (^)(NSProgress *progress))progress
      success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
      failure:(void (^)(NSURLSessionDataTask *task, NSError *error, NSString *errorMsg))failure {
-    NSLog(@"当前请求网址为：%@", [mainURL stringByAppendingString:URLString]);
-    NSLog(@"当前请求参数为：%@", parameters);
+    debugLog(@"当前请求网址为：%@", [mainURL stringByAppendingString:URLString]);
+    debugLog(@"当前请求参数为：%@", parameters);
 
     /**
      *  状态栏菊花
@@ -43,7 +43,7 @@
     [self.sessionManager POST:[mainURL stringByAppendingString:URLString]
         parameters:parameters
         progress:^(NSProgress *_Nonnull uploadProgress) {
-            NSLog(@"---上传进度--- %@", uploadProgress);
+            debugLog(@"---上传进度--- %@", uploadProgress);
             if (progress) {
                 progress(uploadProgress);
             }
@@ -54,14 +54,14 @@
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
             NSDictionary *allHeaders = response.allHeaderFields;
             if ([allHeaders valueForKey:@"t"]) {
-                NSLog(@"tttttttttt %@",[allHeaders valueForKey:@"t"]);
+                debugLog(@"tttttttttt %@",[allHeaders valueForKey:@"t"]);
                 // 设置请求头
                 [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",[allHeaders valueForKey:@"t"]] forKey:@"t"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
             }
 
-            NSLog(@"%@", responseObject);
+            debugLog(@"%@", responseObject);
             if (responseObject) {
                 if ([[responseObject valueForKey:@"ret"] intValue] == 1) {
                     success(task, responseObject);
@@ -74,7 +74,7 @@
         failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
             if (failure) {
                 failure(task, error, error.localizedDescription);
-                NSLog(@"网络请求错误：%@", error.localizedDescription);
+                debugLog(@"网络请求错误：%@", error.localizedDescription);
             }
         }];
 }
@@ -88,8 +88,8 @@
     NSString *URL = [[URLString substringWithRange:NSMakeRange(0, 4)] isEqualToString:@"http"]
                         ? URLString
                         : [mainURL stringByAppendingString:URLString];
-    NSLog(@"当前请求网址为：%@", URL);
-    NSLog(@"当前请求参数为：%@", parameters);
+    debugLog(@"当前请求网址为：%@", URL);
+    debugLog(@"当前请求参数为：%@", parameters);
 
     /**
      *  状态栏菊花
@@ -99,7 +99,7 @@
     [self.sessionManager GET:URL
         parameters:parameters
         progress:^(NSProgress *_Nonnull uploadProgress) {
-            NSLog(@"---上传进度--- %@", uploadProgress);
+            debugLog(@"---上传进度--- %@", uploadProgress);
             if (progress) {
                 progress(uploadProgress);
             }
@@ -110,7 +110,7 @@
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
             NSDictionary *allHeaders = response.allHeaderFields;
             if ([allHeaders valueForKey:@"t"]) {
-                NSLog(@"tttttttttt %@",[allHeaders valueForKey:@"t"]);
+                debugLog(@"tttttttttt %@",[allHeaders valueForKey:@"t"]);
                 // 设置请求头
                 [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",[allHeaders valueForKey:@"t"]] forKey:@"t"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
@@ -134,7 +134,7 @@
         failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
             if (failure) {
                 failure(task, error, error.localizedDescription);
-                NSLog(@"网络请求错误：%@", error.localizedDescription);
+                debugLog(@"网络请求错误：%@", error.localizedDescription);
             }
         }];
 }
@@ -147,8 +147,8 @@
      success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
      failure:(void (^)(NSURLSessionDataTask *task, NSError *error, NSString *errorMsg))failure {
     
-    NSLog(@"当前请求网址为：%@", [mainURL stringByAppendingString:URLString]);
-    NSLog(@"当前请求参数为：%@", parameters);
+    debugLog(@"当前请求网址为：%@", [mainURL stringByAppendingString:URLString]);
+    debugLog(@"当前请求参数为：%@", parameters);
 
     /**
      *  状态栏菊花
@@ -192,7 +192,7 @@
         }
         progress:^(NSProgress *_Nonnull uploadProgress) {
 
-            NSLog(@"---上传进度--- %@", uploadProgress);
+            debugLog(@"---上传进度--- %@", uploadProgress);
             progress(uploadProgress);
 
         }
@@ -203,7 +203,7 @@
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
             NSDictionary *allHeaders = response.allHeaderFields;
             if ([allHeaders valueForKey:@"t"]) {
-                NSLog(@"tttttttttt %@",[allHeaders valueForKey:@"t"]);
+                debugLog(@"tttttttttt %@",[allHeaders valueForKey:@"t"]);
                 // 设置请求头
                 [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",[allHeaders valueForKey:@"t"]] forKey:@"t"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
@@ -221,7 +221,7 @@
         failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
 
             failure(task, error, error.localizedDescription);
-            NSLog(@"网络请求错误：%@", error.localizedDescription);
+            debugLog(@"网络请求错误：%@", error.localizedDescription);
         }];
 }
 
@@ -263,7 +263,7 @@
     
     // 设置请求头
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"t"]) {
-        NSLog(@"打印 %@",[[NSUserDefaults standardUserDefaults] valueForKey:@"t"]);
+        debugLog(@"打印 %@",[[NSUserDefaults standardUserDefaults] valueForKey:@"t"]);
         [_sessionManager.requestSerializer
          setValue:[NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"t"]]
          forHTTPHeaderField:@"t"];

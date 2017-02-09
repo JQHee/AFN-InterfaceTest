@@ -25,6 +25,16 @@
 #define mainURL @"http://192.168.1.250:8080"
 //#define mainURL @"http://me4auh.natappfree.cc/elmsc2/api/"
 
+
+#ifdef DEBUG
+#define debugLog(...) NSLog(__VA_ARGS__)
+#define debugMethod NSLog(@"%s", __FUNCTION__)
+#else
+#define debugLog(...)
+#define debugMethod()
+#endif
+#define PrintJSON debugLog(@"JSON数据完成:%@", [[NSString alloc] initWithData:[responseObject mj_JSONData] encoding:NSUTF8StringEncoding])
+
 @interface QFNetworking : NSObject
 
 + (instancetype)sharedInstance;
