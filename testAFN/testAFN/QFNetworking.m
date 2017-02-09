@@ -254,8 +254,6 @@
         _sessionManager = [AFHTTPSessionManager manager];
         //        [_sessionManager setSecurityPolicy:[self customSecurityPolicy]];
 
-        _sessionManager.requestSerializer = [AFJSONRequestSerializer new];
-        _sessionManager.requestSerializer = [AFJSONRequestSerializer serializer]; //请求
         _sessionManager.responseSerializer = [AFJSONResponseSerializer serializer]; //响应
         [_sessionManager.requestSerializer setValue:@"GFBiOS" forHTTPHeaderField:@"X-Requested-With"];
         [_sessionManager.requestSerializer setValue:@"2" forHTTPHeaderField:@"f"];
