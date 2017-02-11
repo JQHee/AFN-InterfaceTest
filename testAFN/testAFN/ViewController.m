@@ -19,8 +19,9 @@
     [super viewDidLoad];
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    dict[@"phone"] = @"18775134221";
+    dict[@"phone"] = @18775134221;
     dict[@"type"] = @2;
+    dict[@"isTest"] = @true;
     
     [[QFNetworking sharedInstance] POST:@"/client/seller/user/get-phonecode.do" parameters:dict progress:^(NSProgress *progress) {
         
@@ -30,6 +31,7 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error, NSString *errorMsg) {
         NSLog(@"- %@", error);
     }];
+    
 }
 
 

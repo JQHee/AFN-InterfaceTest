@@ -10,6 +10,8 @@
 
 @interface ViewController : UIViewController
 
+extern void showD();
+extern void dissmiss();
 
 @end
 
